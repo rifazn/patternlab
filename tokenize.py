@@ -1,7 +1,6 @@
-#!/bin/python3
-
-from pprint import pprint
 import numpy as np
+import pandas as pd
+from pprint import pprint
 
 # Function defs
 
@@ -21,6 +20,13 @@ def generate_center_context_pair(tokens, window: int) -> dict:
                     pairs[center_word].append(row[i])
     return pairs
 
+def generate_jdd(cc_pair: dict) -> list:
+    jdd = []
+    for key in cc_pair.keys():
+        for item in cc_pair[key]:
+            jdd.append([item, key])
+    return jdd
+
 corpus = [
         "he is a king",
         "she is a queen",
@@ -39,6 +45,11 @@ def main():
     cc_pair = generate_center_context_pair(tokens, 2)
 
     pprint(cc_pair)
+
+    jdd = np.asarray(generate_jdd(cc_pair))
+    jdd = pd.DataFrame({'context': jdd[:, 0], 'center': jdd[:, 1]})
+    print("Joint Distribution Table")
+    print(jdd)
 
 if __name__ == "__main__":
     main()
