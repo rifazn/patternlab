@@ -40,9 +40,5 @@ def main():
 
     pprint(cc_pair)
 
-    print("Printing from the code from the blog.")
-
-    code_in_the_blog()
-
 if __name__ == "__main__":
     main()
