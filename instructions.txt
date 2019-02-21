@@ -1,0 +1,6 @@
+Make a python virtual environment fist
+
+python3 -m venv nameofenv
+source nameofenv/bin/activate
+
+pip install -r requirements.txt
