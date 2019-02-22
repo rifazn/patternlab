@@ -20,12 +20,17 @@ def generate_center_context_pair(tokens, window: int) -> dict:
                     pairs[center_word].append(row[i])
     return pairs
 
-def generate_jdd(cc_pair: dict) -> list:
-    jdd = []
+def generate_jdt(cc_pair: dict) -> list:
+    jdt = []
     for center in cc_pair.keys():
         for context in cc_pair[center]:
-            jdd.append([center, context])
-    return jdd
+            jdt.append([center, context])
+    return jdt
+
+def all_p_of_context_given_center(joint_distrib_table: pd.DataFrame):
+    counts = joint_distrib_table.groupby(['center', 'context']).size()
+    counts = counts.to_dict()
+    return counts
 
 corpus = [
         "he is a king",
@@ -44,13 +49,16 @@ def main():
     tokens = tokenize(corpus)
     cc_pair = generate_center_context_pair(tokens, 2)
 
-    pprint(cc_pair)
+    # pprint(cc_pair)
 
-    global jdd
-    jdd = np.asarray(generate_jdd(cc_pair))
-    jdd = pd.DataFrame({'center': jdd[:, 0], 'context': jdd[:, 1]})
+    global jdt
+    jdt = np.asarray(generate_jdt(cc_pair))
+    jdt = pd.DataFrame({'center': jdt[:, 0], 'context': jdt[:, 1]})
     print("Joint Distribution Table")
-    print(jdd)
+    print(jdt)
+
+    cc_pair_counts = all_p_of_context_given_center(jdt)
+    pprint(cc_pair_counts)
 
 if __name__ == "__main__":
     main()
