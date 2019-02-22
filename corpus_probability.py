@@ -22,9 +22,9 @@ def generate_center_context_pair(tokens, window: int) -> dict:
 
 def generate_jdd(cc_pair: dict) -> list:
     jdd = []
-    for key in cc_pair.keys():
-        for item in cc_pair[key]:
-            jdd.append([item, key])
+    for center in cc_pair.keys():
+        for context in cc_pair[center]:
+            jdd.append([center, context])
     return jdd
 
 corpus = [
@@ -46,8 +46,9 @@ def main():
 
     pprint(cc_pair)
 
+    global jdd
     jdd = np.asarray(generate_jdd(cc_pair))
-    jdd = pd.DataFrame({'context': jdd[:, 0], 'center': jdd[:, 1]})
+    jdd = pd.DataFrame({'center': jdd[:, 0], 'context': jdd[:, 1]})
     print("Joint Distribution Table")
     print(jdd)
 
