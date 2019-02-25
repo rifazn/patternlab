@@ -32,10 +32,14 @@ def all_p_of_context_given_center(joint_distrib_table: pd.DataFrame):
     counts = counts.to_dict()
 
     # Denominator for the probability
-    kees = np.array(counts.keys())
-    unique_centers, center_counts = np.unique(kees, return_counts=True)
+    total = joint_distrib_table.groupby('center').size()
+    total = total.to_dict()
 
-    total = dict(zip(unique_centers, center_counts))
+    for center in total.keys():
+        for k in list(counts.keys()):
+            if k[0] is center:
+                counts[k] = [counts[k]]
+                counts[k].append(total[center])
 
     return counts
 
