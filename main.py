@@ -20,12 +20,28 @@ def generate_center_context_pair(tokens, window: int) -> dict:
                     pairs[center_word].append(row[i])
     return pairs
 
-def generate_jdd(cc_pair: dict) -> list:
-    jdd = []
-    for key in cc_pair.keys():
-        for item in cc_pair[key]:
-            jdd.append([item, key])
-    return jdd
+def generate_jdt(cc_pair: dict) -> list:
+    jdt = []
+    for center in cc_pair.keys():
+        for context in cc_pair[center]:
+            jdt.append([center, context])
+    return jdt
+
+def all_p_of_context_given_center(joint_distrib_table: pd.DataFrame):
+    counts = joint_distrib_table.groupby(['center', 'context']).size()
+    counts = counts.to_dict()
+
+    # Denominator for the probability
+    total = joint_distrib_table.groupby('center').size()
+    total = total.to_dict()
+
+    for center in total.keys():
+        for k in list(counts.keys()):
+            if k[0] is center:
+                counts[k] = [counts[k]]
+                counts[k].append(total[center])
+
+    return counts
 
 corpus = [
         "he is a king",
@@ -44,12 +60,16 @@ def main():
     tokens = tokenize(corpus)
     cc_pair = generate_center_context_pair(tokens, 2)
 
-    pprint(cc_pair)
+    # pprint(cc_pair)
 
-    jdd = np.asarray(generate_jdd(cc_pair))
-    jdd = pd.DataFrame({'context': jdd[:, 0], 'center': jdd[:, 1]})
+    global jdt
+    jdt = np.asarray(generate_jdt(cc_pair))
+    jdt = pd.DataFrame({'center': jdt[:, 0], 'context': jdt[:, 1]})
     print("Joint Distribution Table")
-    print(jdd)
+    print(jdt)
+
+    cc_pair_counts = all_p_of_context_given_center(jdt)
+    pprint(cc_pair_counts)
 
 if __name__ == "__main__":
     main()
