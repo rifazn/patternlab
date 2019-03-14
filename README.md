@@ -1,5 +1,6 @@
 # patternlab
-This repo will have all the codes for our Pattern Recognition Lab university course.
+We are attempting to reproduce the research paper (Link 1) as part of our Pattern Recognition (Lab) course.
+This repo will have all the codes and track the progress for our course.
 
 # Demo
 To have a demo of the current progress in a more presentable way, check out the Project_demo.ipynb file.
