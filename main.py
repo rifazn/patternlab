@@ -10,6 +10,15 @@ def tokenize(corpus : str) -> list:
         tokens.append(sentence.split())
     return tokens
 
+def word2index(tokens):
+    vocabulary = []
+    for sentence in tokens:
+        for token in sentence:
+            if token not in vocabulary:
+                vocabulary.append(token)
+    word2idx = {w: idx for (idx, w) in enumerate(vocabulary)}    
+    return word2idx
+
 def generate_center_context_pair(tokens, window: int) -> dict:
     pairs = dict()
     for row in tokens:
@@ -61,6 +70,11 @@ def main():
     cc_pair = generate_center_context_pair(tokens, 2)
 
     # pprint(cc_pair)
+
+    word2idx = word2index(tokens)
+    idx2word = {key: val for (val, key) in word2idx.items()}
+    print(word2idx)
+    print(idx2word)
 
     global jdt
     jdt = np.asarray(generate_jdt(cc_pair))
