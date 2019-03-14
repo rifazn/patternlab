@@ -15,5 +15,6 @@ These are the links provided in the class and will be used all throughout the co
 - [x] Implement the code from the 1st link as much as possible by ourselves in a manner that maximises our understanding of the topics (by doing research in between, not just code)
     - [x] Find the right probabilities of every center,context pair (in form of P(context|center))
     - [x] Make word2idx and idx2word arrays, so they can be passed to 'torch'
+    - [ ] Finish rest of the code (the PyTorch parts)
 - [ ] Finally, run the code, and do an excellent demo of what the code can do in class. Have presentation slides ready.
     
