@@ -89,7 +89,7 @@ corpus = [
         "warsaw is poland capital",
         "berlin is germany capital",
         "paris is france capital",
-        # "Sxi este juna kaj bela",
+        # "Sxi estas juna kaj bela",
 ]
 
 def experiments():
