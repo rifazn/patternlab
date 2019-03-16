@@ -155,5 +155,17 @@ def main():
         if i % 10 == 0:
             print(f"Loss at iter {i}: {loss_val/len(idx_pairs)}")
 
+    # Lets see the word predictions for each word in our vocabulary
+    for word in vocabulary:
+        widx = word2idx[word]
+        x = Variable(get_input_layer(widx, vocab_size)).float()
+        z1 = torch.matmul(W1, x)
+        z2 = torch.matmul(W2, z1)
+
+        log_softmax = F.log_softmax(z2, dim=0)
+        max_arg = torch.argmax(log_softmax).item()
+        pred_word = idx2word[max_arg]
+        print(f"Center: {word} ; Context: {pred_word}")
+
 if __name__ == "__main__":
     main()
