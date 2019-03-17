@@ -17,6 +17,6 @@ These are the links provided in the class and will be used all throughout the co
     - [x] Make word2idx and idx2word arrays, so they can be passed to 'torch'
     - [x] Finish rest of the code (the PyTorch parts)
 - [x] Finally, run the code, and do an excellent demo of what the code can do in class. Have presentation slides ready.
-- [ ] The blog's code only calculates the loss of the predictions, doesn't actually show the suggested context given center. We might need to do that
+- [x] The blog's code only calculates the loss of the predictions, doesn't actually show the suggested context given center. We might need to do that
   extra part.
     
